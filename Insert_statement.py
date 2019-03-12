@@ -29,9 +29,14 @@ class Insert_statement(Query):
 		print(self._query_str + " HERE")
 		return
 	def _value_cleanse(self):
-		for i in range(0, len(self._values)-1):
-			self._values[i] = str(self._values[i])
+		for i in range(0, len(self._values)):
+			try:
+				int(self._values[i])
+			except ValueError as VE:
+				self._values[i] = "'" + str(self._values[i]).replace("'",'') + "'"
+			else: self._values[i] = str(self._values[i])
 		return
+	
 
 
 
